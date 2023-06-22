@@ -1,0 +1,740 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+    <link rel="stylesheet" href="indexstyle.css" type="text/css">
+</head>
+
+<body background="imgs_DONT_OPEN/whitebg.png">
+    <script type="text/javascript">
+        var h,w;
+        var crhb1 = [1,2,0,0,0,3] , crwb1 = [1,1,0,2,1,1];
+        var crhb2 = [3,0,2,0,1,1] , crwb2 = [1,0,1,1,2,1];
+        var crhb3 = [2,3,2,0,1,1] , crwb3 = [0,1,1,1,1,2];
+        var crhb4 = [2] , crwb4 = [0];
+        var dh = [0,1,0,-1] , dw = [1,0,-1,0];
+        var crb1 = ["danraku","ito","mizuba","gorufu","katana","frame"];
+        var crb2 = ["sweeper","tsukimi","sanganichi","road","nihoniumu","tawashi"];
+        var crb3 = ["jiun","gokuhi","nazo","art","takaramono","baibai"];
+        var crb4 = ["dinant"];
+        var correctcountb1 = 0;
+        var correctcountb2 = 0;
+        var correctcountb3 = 0;
+        var correctcountb4 = 0;
+        var problemcorrects1 = [false,false,false,false,false,false];
+        var problemcorrects2 = [false,false,false,false,false,false];
+        var problemcorrects3 = [false,false,false,false,false,false];
+        var problemcorrects4 = [false];
+        var completeb1 = false;
+        var completeb2 = false;
+        var completeb3 = false;
+        var nowfloor = 1;
+
+        function start_s1(){
+            document.getElementById("get_ready").style.display = "none";
+            document.getElementById("block_start").style.display = "none";
+            document.getElementById("expl1").style.display = "none";
+            document.getElementById("expl2").style.display = "none";
+            document.getElementById("expl3").style.display = "none";
+            document.getElementById("expl4").style.display = "none";
+            document.getElementById("expl5").style.display = "none";
+            document.getElementById("expl6").style.display = "none";
+            document.getElementById("expl7").style.display = "none";
+            document.getElementById("expl8").style.display = "none";
+            document.getElementById("b1f").style.display = "block";
+            document.getElementById("submitbutton1").style.display = "inline";
+            document.getElementById("hebon1").style.display = "block";
+            document.getElementById("hebonb1").style.display = "inline";
+
+            h = 3 , w = 1;
+            document.getElementById("b16").style.display = "inline";
+            document.body.style.backgroundImage = "url(imgs_DONT_OPEN/greenbrickwall.jpg)";
+            document.body.style.backgroundRepeat = "no-repeat";
+            document.body.style.backgroundSize = "cover";
+            
+            
+            updateb1();
+        }
+
+        function updateb1(){
+            document.getElementById("b11").style.display = "none";
+            document.getElementById("b12").style.display = "none";
+            document.getElementById("b13").style.display = "none";
+            document.getElementById("b14").style.display = "none";
+            document.getElementById("b15").style.display = "none";
+            document.getElementById("b16").style.display = "none";
+            document.getElementById("b11fo").style.display = "none";
+            document.getElementById("b12fo").style.display = "none";
+            document.getElementById("b13fo").style.display = "none";
+            document.getElementById("b14fo").style.display = "none";
+            document.getElementById("b15fo").style.display = "none";
+            document.getElementById("b16fo").style.display = "none";
+            document.getElementById("go_north").style.display = "none";
+            document.getElementById("go_south").style.display = "none";
+            document.getElementById("go_east").style.display = "none";
+            document.getElementById("go_west").style.display = "none";
+
+            for(var i = 0;i<6;i++){
+                if(h == crhb1[i] && w == crwb1[i]){
+                    var nowid = "b1" + (i+1);
+                    var nowidfo = nowid+"fo";
+                    document.getElementById(nowid).style.display = "block";
+                    document.getElementById(nowidfo).style.display = "block";
+
+                    if(completeb1 && nowid == "b12"){
+                        document.getElementById("go_down12").style.display = "inline";
+                    }
+                    else{
+                        document.getElementById("go_down12").style.display = "none";
+                    }
+                }
+            }
+            for(var i = 0;i<4;i++){
+                var nh = h+dh[i] , nw = w+dw[i];
+                var nexok = Boolean(false);
+                for(var j = 0;j<6;j++){
+                    if(crhb1[j] == nh && crwb1[j] == nw){
+                        nexok = true;
+                    }
+                }
+                if(nexok){
+                    if(i == 0){
+                        document.getElementById("go_east").style.display = "inline";
+                    }
+                    else if(i == 1){
+                        document.getElementById("go_south").style.display = "inline";
+                    }
+                    else if(i == 2){
+                        document.getElementById("go_west").style.display = "inline";
+                    }
+                    else if(i == 3){
+                        document.getElementById("go_north").style.display = "inline";
+                    }
+                }
+            }
+        }
+
+        function anssubmitb1(){
+            for(var i = 0;i<6;i++){
+                if(h == crhb1[i] && w == crwb1[i]){
+                    var formid = "b1" + (i+1) + "fo";
+                    var nowans = document.getElementById(formid).value;
+                    if(nowans == crb1[i] && problemcorrects1[i] == false){
+                        problemcorrects1[i] = true;
+                        correctcountb1++;
+                        document.getElementById("b1f").innerHTML = "B1F " + correctcountb1 + "/6";
+                        document.getElementById(formid).placeholder = nowans;
+                        alert("正解！");
+                        if(correctcountb1 >= 6){
+                            alert("B1Fの全ての謎を解いた！ B2Fが開放された！");
+                            completeb1 = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        function anssubmitb2(){
+            for(var i = 0;i<6;i++){
+                if(h == crhb2[i] && w == crwb2[i]){
+                    var formid = "b2" + (i+1) + "fo";
+                    var nowans = document.getElementById(formid).value;
+                    if(nowans == crb2[i] && problemcorrects2[i] == false){
+                        problemcorrects2[i] = true;
+                        correctcountb2++;
+                        document.getElementById("b2f").innerHTML = "B2F " + correctcountb2 + "/6";
+                        document.getElementById(formid).placeholder = nowans;
+                        alert("正解！");
+                        if(correctcountb2 >= 6){
+                            alert("B2Fの全ての謎を解いた！ B3Fが開放された！");
+                            completeb2 = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        function anssubmitb3(){
+            for(var i = 0;i<6;i++){
+                if(h == crhb3[i] && w == crwb3[i]){
+                    var formid = "b3" + (i+1) + "fo";
+                    var nowans = document.getElementById(formid).value;
+                    if(nowans == crb3[i] && problemcorrects3[i] == false){
+                        problemcorrects3[i] = true;
+                        correctcountb3++;
+                        document.getElementById("b3f").innerHTML = "B3F " + correctcountb3 + "/6";
+                        document.getElementById(formid).placeholder = nowans;
+                        alert("正解！");
+                        if(correctcountb3 >= 6){
+                            alert("B3Fの全ての謎を解いた！ 最深部が開放された！");
+                            completeb3 = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        function anssubmitb4(){
+            for(var i = 0;i<1;i++){
+                if(h == crhb4[i] && w == crwb4[i]){
+                    var formid = "bfinalfo";
+                    var nowans = document.getElementById(formid).value;
+                    if(nowans == crb4[i] && problemcorrects4[i] == false){
+                        problemcorrects4[i] = true;
+                        correctcountb4++;
+                        document.getElementById(formid).placeholder = nowans;
+                        alert("正解！");
+                        if(correctcountb4 >= 1){
+                            alert("最深部の謎に正解した！");
+                            alert("BLUE BLOCK:BASEMENT CLEARED! Congratulations!");
+                            completeb4 = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        function go_north(){
+            h--;
+            if(nowfloor == 1){
+                updateb1();
+            }
+            else if(nowfloor == 2){
+                updateb2();
+            }
+            else if(nowfloor == 3){
+                updateb3();
+            }
+        }
+        function go_south(){
+            h++;
+            if(nowfloor == 1){
+                updateb1();
+            }
+            else if(nowfloor == 2){
+                updateb2();
+            }
+            else if(nowfloor == 3){
+                updateb3();
+            }
+        }
+        function go_east(){
+            w++;
+            if(nowfloor == 1){
+                updateb1();
+            }
+            else if(nowfloor == 2){
+                updateb2();
+            }
+            else if(nowfloor == 3){
+                updateb3();
+            }
+        }
+        function go_west(){
+            w--;
+            if(nowfloor == 1){
+                updateb1();
+            }
+            else if(nowfloor == 2){
+                updateb2();
+            }
+            else if(nowfloor == 3){
+                updateb3();
+            }
+        }
+        
+        function go_b1f(){
+            document.getElementById("b1f").style.display = "block";
+            document.getElementById("b2f").style.display = "none";
+            document.getElementById("go_up21").style.display = "none";
+            document.getElementById("submitbutton2").style.display = "none";
+            document.getElementById("submitbutton1").style.display = "inline";
+            document.getElementById("hebon2").style.display = "none";
+            document.getElementById("hebonb2").style.display = "none";
+            document.getElementById("hebon1").style.display = "block";
+            document.getElementById("hebonb1").style.display = "inline";
+
+            for(var i = 0;i<6;i++){
+                var nowid = "b2" + (i+1);
+                var nowidfo = nowid+"fo";
+                document.getElementById(nowid).style.display = "none";
+                document.getElementById(nowidfo).style.display = "none";
+            }
+            h = 2 , w = 1;
+            document.getElementById("b23").style.display = "none";
+            document.getElementById("b16").style.display = "inline";
+            document.body.style.backgroundImage = "url(imgs_DONT_OPEN/greenbrickwall.jpg)";
+            document.body.style.backgroundRepeat = "no-repeat";
+            document.body.style.backgroundSize = "cover";
+            nowfloor = 1;
+            updateb1();
+        }
+        
+        function go_b2f(){
+            if(nowfloor == 3){
+                h = 1 , w = 2;
+            }
+            else if(nowfloor == 1){
+                h = 2 , w = 1;
+            }
+            
+            document.body.style.backgroundImage = "url(imgs_DONT_OPEN/bluebrickwall.jpg)";
+            document.getElementById("b1f").style.display = "none";
+            document.getElementById("b11").style.display = "none";
+            document.getElementById("b12").style.display = "none";
+            document.getElementById("b13").style.display = "none";
+            document.getElementById("b14").style.display = "none";
+            document.getElementById("b15").style.display = "none";
+            document.getElementById("b16").style.display = "none";
+            document.getElementById("b11fo").style.display = "none";
+            document.getElementById("b12fo").style.display = "none";
+            document.getElementById("b13fo").style.display = "none";
+            document.getElementById("b14fo").style.display = "none";
+            document.getElementById("b15fo").style.display = "none";
+            document.getElementById("b16fo").style.display = "none";
+            document.getElementById("b3f").style.display = "none";
+            document.getElementById("b31").style.display = "none";
+            document.getElementById("b32").style.display = "none";
+            document.getElementById("b33").style.display = "none";
+            document.getElementById("b34").style.display = "none";
+            document.getElementById("b35").style.display = "none";
+            document.getElementById("b36").style.display = "none";
+            document.getElementById("b31fo").style.display = "none";
+            document.getElementById("b32fo").style.display = "none";
+            document.getElementById("b33fo").style.display = "none";
+            document.getElementById("b34fo").style.display = "none";
+            document.getElementById("b35fo").style.display = "none";
+            document.getElementById("b36fo").style.display = "none";
+            document.getElementById("go_north").style.display = "none";
+            document.getElementById("go_south").style.display = "none";
+            document.getElementById("go_east").style.display = "none";
+            document.getElementById("go_west").style.display = "none";
+            document.getElementById("go_down12").style.display = "none";
+            document.getElementById("go_up32").style.display = "none";
+            document.getElementById("go_up21").style.display = "inline";
+            document.getElementById("b2f").style.display = "block";
+            document.getElementById("submitbutton1").style.display = "none";
+            document.getElementById("submitbutton3").style.display = "none";
+            document.getElementById("submitbutton2").style.display = "inline";
+            document.getElementById("hebon1").style.display = "none";
+            document.getElementById("hebonb1").style.display = "none";
+            document.getElementById("hebon3").style.display = "none";
+            document.getElementById("hebonb3").style.display = "none";
+            document.getElementById("hebon2").style.display = "block";
+            document.getElementById("hebonb2").style.display = "inline";
+            nowfloor = 2;
+
+            updateb2();
+        }
+
+        function go_b3f(){
+            if(nowfloor == 2){
+                h = 1 , w = 2;
+            }
+            else if(nowfloor == 4){
+                h = 2 , w = 0;
+            }
+            document.body.style.backgroundImage = "url(imgs_DONT_OPEN/redbrickwall.jpg)";
+            document.getElementById("b2f").style.display = "none";
+            document.getElementById("b21").style.display = "none";
+            document.getElementById("b22").style.display = "none";
+            document.getElementById("b23").style.display = "none";
+            document.getElementById("b24").style.display = "none";
+            document.getElementById("b25").style.display = "none";
+            document.getElementById("b26").style.display = "none";
+            document.getElementById("b21fo").style.display = "none";
+            document.getElementById("b22fo").style.display = "none";
+            document.getElementById("b23fo").style.display = "none";
+            document.getElementById("b24fo").style.display = "none";
+            document.getElementById("b25fo").style.display = "none";
+            document.getElementById("b26fo").style.display = "none";
+            document.getElementById("go_north").style.display = "none";
+            document.getElementById("go_south").style.display = "none";
+            document.getElementById("go_east").style.display = "none";
+            document.getElementById("go_west").style.display = "none";
+            document.getElementById("go_down23").style.display = "none";
+            document.getElementById("bfinal").style.display = "none";
+            document.getElementById("b4f").style.display = "none";
+            document.getElementById("bfinalfo").style.display = "none";
+            document.getElementById("go_up43").style.display = "none";
+            document.getElementById("go_up32").style.display = "inline";
+            document.getElementById("b3f").style.display = "block";
+            document.getElementById("submitbutton2").style.display = "none";
+            document.getElementById("submitbutton4").style.display = "none";
+            document.getElementById("submitbutton3").style.display = "inline";
+            document.getElementById("hebon2").style.display = "none";
+            document.getElementById("hebonb2").style.display = "none";
+            document.getElementById("hebon4").style.display = "none";
+            document.getElementById("hebonb4").style.display = "none";
+            document.getElementById("hebon3").style.display = "block";
+            document.getElementById("hebonb3").style.display = "inline";
+            nowfloor = 3;
+
+            updateb3();
+        }
+
+        function go_b4f(){
+            h = 2 , w = 0;
+            document.body.style.backgroundImage = "url(imgs_DONT_OPEN/blackbrickwall.jpg)";
+            document.getElementById("b3f").style.display = "none";
+            document.getElementById("b31").style.display = "none";
+            document.getElementById("b32").style.display = "none";
+            document.getElementById("b33").style.display = "none";
+            document.getElementById("b34").style.display = "none";
+            document.getElementById("b35").style.display = "none";
+            document.getElementById("b36").style.display = "none";
+            document.getElementById("b31fo").style.display = "none";
+            document.getElementById("b32fo").style.display = "none";
+            document.getElementById("b33fo").style.display = "none";
+            document.getElementById("b34fo").style.display = "none";
+            document.getElementById("b35fo").style.display = "none";
+            document.getElementById("b36fo").style.display = "none";
+            document.getElementById("go_north").style.display = "none";
+            document.getElementById("go_south").style.display = "none";
+            document.getElementById("go_east").style.display = "none";
+            document.getElementById("go_west").style.display = "none";
+            document.getElementById("go_down34").style.display = "none";
+            document.getElementById("bfinal").style.display = "none";
+            document.getElementById("bfinalfo").style.display = "none";
+            document.getElementById("go_up43").style.display = "inline";
+            document.getElementById("b4f").style.display = "block";
+            document.getElementById("submitbutton3").style.display = "none";
+            document.getElementById("submitbutton4").style.display = "inline";
+            document.getElementById("hebon3").style.display = "none";
+            document.getElementById("hebonb3").style.display = "none";
+            document.getElementById("hebon4").style.display = "block";
+            document.getElementById("hebonb4").style.display = "inline";
+            nowfloor = 4;
+
+            updateb4();
+        }
+
+        function updateb2(){
+            document.getElementById("b21").style.display = "none";
+            document.getElementById("b22").style.display = "none";
+            document.getElementById("b23").style.display = "none";
+            document.getElementById("b24").style.display = "none";
+            document.getElementById("b25").style.display = "none";
+            document.getElementById("b26").style.display = "none";
+            document.getElementById("b21fo").style.display = "none";
+            document.getElementById("b22fo").style.display = "none";
+            document.getElementById("b23fo").style.display = "none";
+            document.getElementById("b24fo").style.display = "none";
+            document.getElementById("b25fo").style.display = "none";
+            document.getElementById("b26fo").style.display = "none";
+            document.getElementById("go_north").style.display = "none";
+            document.getElementById("go_south").style.display = "none";
+            document.getElementById("go_east").style.display = "none";
+            document.getElementById("go_west").style.display = "none";
+
+            for(var i = 0;i<6;i++){
+                if(h == crhb2[i] && w == crwb2[i]){
+                    var nowid = "b2" + (i+1);
+                    var nowidfo = nowid+"fo";
+                    document.getElementById(nowid).style.display = "block";
+                    document.getElementById(nowidfo).style.display = "block";
+
+                    if(completeb2 && nowid == "b25"){
+                        document.getElementById("go_down23").style.display = "inline";
+                    }
+                    else{
+                        document.getElementById("go_down23").style.display = "none";
+                    }
+                    if(nowid == "b23"){
+                        document.getElementById("go_up21").style.display = "inline";
+                    }
+                    else{
+                        document.getElementById("go_up21").style.display = "none";
+                    }
+                }
+            }
+            for(var i = 0;i<4;i++){
+                var nh = h+dh[i] , nw = w+dw[i];
+                var nexok = Boolean(false);
+                for(var j = 0;j<6;j++){
+                    if(crhb2[j] == nh && crwb2[j] == nw){
+                        nexok = true;
+                    }
+                }
+                if(nexok){
+                    if(i == 0){
+                        document.getElementById("go_east").style.display = "inline";
+                    }
+                    else if(i == 1){
+                        document.getElementById("go_south").style.display = "inline";
+                    }
+                    else if(i == 2){
+                        document.getElementById("go_west").style.display = "inline";
+                    }
+                    else if(i == 3){
+                        document.getElementById("go_north").style.display = "inline";
+                    }
+                }
+            }
+        }
+
+        function updateb3(){
+            document.getElementById("b31").style.display = "none";
+            document.getElementById("b32").style.display = "none";
+            document.getElementById("b33").style.display = "none";
+            document.getElementById("b34").style.display = "none";
+            document.getElementById("b35").style.display = "none";
+            document.getElementById("b36").style.display = "none";
+            document.getElementById("b31fo").style.display = "none";
+            document.getElementById("b32fo").style.display = "none";
+            document.getElementById("b33fo").style.display = "none";
+            document.getElementById("b34fo").style.display = "none";
+            document.getElementById("b35fo").style.display = "none";
+            document.getElementById("b36fo").style.display = "none";
+            document.getElementById("go_north").style.display = "none";
+            document.getElementById("go_south").style.display = "none";
+            document.getElementById("go_east").style.display = "none";
+            document.getElementById("go_west").style.display = "none";
+
+            for(var i = 0;i<6;i++){
+                if(h == crhb3[i] && w == crwb3[i]){
+                    var nowid = "b3" + (i+1);
+                    var nowidfo = nowid+"fo";
+                    document.getElementById(nowid).style.display = "block";
+                    document.getElementById(nowidfo).style.display = "block";
+
+                    if(completeb3 && nowid == "b31"){
+                        document.getElementById("go_down34").style.display = "inline";
+                    }
+                    else{
+                        document.getElementById("go_down34").style.display = "none";
+                    }
+                    if(nowid == "b36"){
+                        document.getElementById("go_up32").style.display = "inline";
+                    }
+                    else{
+                        document.getElementById("go_up32").style.display = "none";
+                    }
+                }
+            }
+            for(var i = 0;i<4;i++){
+                var nh = h+dh[i] , nw = w+dw[i];
+                var nexok = Boolean(false);
+                for(var j = 0;j<6;j++){
+                    if(crhb3[j] == nh && crwb3[j] == nw){
+                        nexok = true;
+                    }
+                }
+                if(nexok){
+                    if(i == 0){
+                        document.getElementById("go_east").style.display = "inline";
+                    }
+                    else if(i == 1){
+                        document.getElementById("go_south").style.display = "inline";
+                    }
+                    else if(i == 2){
+                        document.getElementById("go_west").style.display = "inline";
+                    }
+                    else if(i == 3){
+                        document.getElementById("go_north").style.display = "inline";
+                    }
+                }
+            }
+        }
+
+        function updateb4(){
+            document.getElementById("bfinal").style.display = "none";
+            document.getElementById("bfinalfo").style.display = "none";
+            document.getElementById("go_north").style.display = "none";
+            document.getElementById("go_south").style.display = "none";
+            document.getElementById("go_east").style.display = "none";
+            document.getElementById("go_west").style.display = "none";
+
+            for(var i = 0;i<1;i++){
+                if(h == crhb4[i] && w == crwb4[i]){
+                    var nowid = "bfinal";
+                    var nowidfo = nowid+"fo";
+                    document.getElementById(nowid).style.display = "block";
+                    document.getElementById(nowidfo).style.display = "block";
+
+                    if(nowid == "bfinal"){
+                        document.getElementById("go_up43").style.display = "inline";
+                    }
+                    else{
+                        document.getElementById("go_up43").style.display = "none";
+                    }
+                }
+            }
+        }
+
+        function hiraganaToRomaji() {
+            const map = {
+                あ: "a", い: "i", う: "u", え: "e", お: "o",
+                か: "ka", き: "ki", く: "ku", け: "ke", こ: "ko",
+                さ: "sa", し: "shi", す: "su", せ: "se", そ: "so",
+                た: "ta", ち: "chi", つ: "tsu", て: "te", と: "to",
+                な: "na", に: "ni", ぬ: "nu", ね: "ne", の: "no",
+                は: "ha", ひ: "hi", ふ: "fu", へ: "he", ほ: "ho",
+                ま: "ma", み: "mi", む: "mu", め: "me", も: "mo",
+                や: "ya", ゆ: "yu", よ: "yo",
+                ら: "ra", り: "ri", る: "ru", れ: "re", ろ: "ro",
+                わ: "wa", を: "wo", ん: "n",
+                が: "ga", ぎ: "gi", ぐ: "gu", げ: "ge", ご: "go",
+                ざ: "za", じ: "ji", ず: "zu", ぜ: "ze", ぞ: "zo",
+                だ: "da", ぢ: "ji", づ: "zu", で: "de", ど: "do",
+                ば: "ba", び: "bi", ぶ: "bu", べ: "be", ぼ: "bo",
+                ぱ: "pa", ぴ: "pi", ぷ: "pu", ぺ: "pe", ぽ: "po",
+                きゃ: "kya", きゅ: "kyu", きょ: "kyo",
+                しゃ: "sha", しゅ: "shu", しょ: "sho",
+                ちゃ: "cha", ちゅ: "chu", ちょ: "cho",
+                にゃ: "nya", にゅ: "nyu", にょ: "nyo",
+                ひゃ: "hya", ひゅ: "hyu", ひょ: "hyo",
+                みゃ: "mya", みゅ: "myu", みょ: "myo",
+                りゃ: "rya", りゅ: "ryu", りょ: "ryo",
+                ぎゃ: "gya", ぎゅ: "gyu", ぎょ: "gyo",
+                じゃ: "ja", じゅ: "ju", じょ: "jo",
+                びゃ: "bya", びゅ: "byu", びょ: "byo",
+                ぴゃ: "pya", ぴゅ: "pyu", ぴょ: "pyo",
+                うぃ: "wi", うぇ: "we", うぉ: "wo",
+                ふぁ: "fa", ふぃ: "fi", ふぇ: "fe", ふぉ: "fo",
+                ゔぁ: "va", ゔぃ: "vi", ゔ: "vu", ゔぇ: "ve", ゔぉ: "vo",
+                てぃ: "ti", でぃ: "di" , ー: ""
+            };
+
+            var hbid = "hebon" + String(nowfloor);
+            let hiragana = document.getElementById(hbid).value;
+            var romaji = "";
+            let i = 0;
+            while (i < hiragana.length) {
+                let char = hiragana[i];
+                let nextChar = hiragana[i + 1];
+                let doubleChar = char + nextChar;
+                if(char == "っ"){
+                    romaji += map[nextchar][0] + map[nextChar];
+                    i += 2;
+                }
+                else if (map[doubleChar]) {
+                    romaji += map[doubleChar];
+                    i += 2;
+                } else if (map[char]) {
+                    romaji += map[char];
+                    i++;
+                } else {
+                    romaji += char;
+                    i++;
+                }
+            }
+            romaji = romaji.replace(/nb/g , "mb");
+            romaji = romaji.replace(/np/g , "mp");
+            romaji = romaji.replace(/nm/g , "mm");
+            
+            document.getElementById(hbid).value = romaji;
+        }
+        
+    </script>
+
+    <div id="get_ready" align="left" style="font-size:40px; font-family:Times New Roman; display:inline; color:blue"> BLUE BLOCK: BASEMENT </div>
+    <div id="expl1" style="font-size:20px; color:red;"> ソースコードを見る行為は禁止です。 </div>
+    <div id="expl2"> 検索行為はしても構いません。 </div>
+    <div id="expl3"> スマホでは最新verの Safari , Google Chrome，PCでは Google Chrome でのプレーを推奨します。 </div>
+    <div id="expl4"> スマホでもプレー可能です。 </div>
+    <div id="expl5"> ページをリロードすると初めから(この注意事項のページから)の再開となります。ご注意ください。 </div>
+    <div id="expl6"> 謎の答えなどをメモしておくなどすることを推奨します。 </div>
+    <div id="expl7"> 解答は半角英字で入力してください。解答形式に指示がある場合はそれに従ってください。 </div>
+    <div id="expl8"> ひらがなを入力するとヘボン式ローマ字に変換する機能を用意しました。ヘボン式で解答する問題で是非ご利用ください。 </div>
+
+    <div id="b1f" style="font-size:50px; display:none; font-family:Times New Roman; -webkit-text-stroke: 2px white;"> B1F 0/6 </div>
+    <img src="imgs_DONT_OPEN//b11.png" id="b11" style="display:none; width:50%; height:50%; max-width: 75%; max-height:75%;"></img>
+    <img src="imgs_DONT_OPEN//b12.png" id="b12" style="display:none; width:50%; height:50%; max-width: 75%; max-height:75%;"></img>
+    <img src="imgs_DONT_OPEN//b13.png" id="b13" style="display:none; width:50%; height:50%; max-width: 75%; max-height:75%;"></img>
+    <img src="imgs_DONT_OPEN//b14.png" id="b14" style="display:none; width:50%; height:50%; max-width: 75%; max-height:75%;"></img>
+    <img src="imgs_DONT_OPEN//b15.png" id="b15" style="display:none; width:50%; height:50%; max-width: 75%; max-height:75%;"></img>
+    <img src="imgs_DONT_OPEN//b16.png" id="b16" style="display:none; width:50%; height:50%; max-width: 75%; max-height:75%;"></img>
+    <input id="b11fo" type="text" placeholder="解答を半角英字で入力" style="display: none;">
+    <input id="b12fo" type="text" placeholder="解答を半角英字で入力" style="display: none;">
+    <input id="b13fo" type="text" placeholder="解答を半角英字で入力" style="display: none;">
+    <input id="b14fo" type="text" placeholder="解答を半角英字で入力" style="display: none;">
+    <input id="b15fo" type="text" placeholder="解答を半角英字で入力" style="display: none;">
+    <input id="b16fo" type="text" placeholder="解答を半角英字で入力" style="display: none;">
+    <button id="submitbutton1" onclick="anssubmitb1();" style="display: none;"> 送信 </button>
+    <button id="block_start" onclick="start_s1();" style="display:inline; font-family:Times New Roman; border:3px solid; font-size:20px; position:absolute; top: 700px; left:200px; width:100px; height:100px"> BLOCK START </button>
+    <button id="go_north" onclick="go_north();" style="display:none; font-family:Times New Roman; border:3px solid; font-size:20px; position:absolute; top: 600px; left:300px; width:100px; height:100px"> 北へ </button>
+    <button id="go_south" onclick="go_south();" style="display:none; font-family:Times New Roman; border:3px solid; font-size:20px; position:absolute; top: 800px; left:300px; width:100px; height:100px"> 南へ </button>
+    <button id="go_east" onclick="go_east();" style="display:none; font-family:Times New Roman; border:3px solid; font-size:20px; position:absolute; top: 700px; left:400px; width:100px; height:100px"> 東へ </button>
+    <button id="go_west" onclick="go_west();" style="display:none; font-family:Times New Roman; border:3px solid; font-size:20px; position:absolute; top: 700px; left:200px; width:100px; height:100px"> 西へ </button>
+    <button id="go_down12" onclick="go_b2f();" style="display: none; font-family:Times New Roman; border:3px solid; font-size:20px; position:absolute; top: 700px; left:300px; width:100px; height:100px"> ハシゴでB2Fへ </button>
+    <input id="hebon1" type="text" placeholder="ひらがなで入力して変換" style="display:none;">
+    <button id="hebonb1" onclick="hiraganaToRomaji()" style="display: none;"> 変換 </button>
+
+    <!-- ///////////////////// ここまで B1F /////////////////////-->
+    
+    <!-- ///////////////////// ここから B2F /////////////////////-->
+
+    <script> // STEP2以降はここから
+
+    </script>
+
+    <div id="b2f" style="font-size:50px; display:none; font-family:Times New Roman; -webkit-text-stroke: 2px white;"> B2F 0/6 </div>
+    <img src="imgs_DONT_OPEN//b21.png" id="b21" style="display:none; width:50%; height:50%; max-width: 75%; max-height:75%;"></img>
+    <img src="imgs_DONT_OPEN//b22.png" id="b22" style="display:none; width:50%; height:50%; max-width: 75%; max-height:75%;"></img>
+    <img src="imgs_DONT_OPEN//b23.png" id="b23" style="display:none; width:50%; height:50%; max-width: 75%; max-height:75%;"></img>
+    <img src="imgs_DONT_OPEN//b24.png" id="b24" style="display:none; width:50%; height:50%; max-width: 75%; max-height:75%;"></img>
+    <img src="imgs_DONT_OPEN//b25.png" id="b25" style="display:none; width:50%; height:50%; max-width: 75%; max-height:75%;"></img>
+    <img src="imgs_DONT_OPEN//b26.png" id="b26" style="display:none; width:50%; height:50%; max-width: 75%; max-height:75%;"></img>
+    <input id="b21fo" type="text" placeholder="解答を半角英字で入力" style="display: none;">
+    <input id="b22fo" type="text" placeholder="解答を半角英字で入力" style="display: none;">
+    <input id="b23fo" type="text" placeholder="解答を半角英字で入力" style="display: none;">
+    <input id="b24fo" type="text" placeholder="解答を半角英字で入力" style="display: none;">
+    <input id="b25fo" type="text" placeholder="解答を半角英字で入力" style="display: none;">
+    <input id="b26fo" type="text" placeholder="解答を半角英字で入力" style="display: none;">
+    <button id="submitbutton2" onclick="anssubmitb2();" style="display: none;"> 送信 </button>
+    <button id="go_north" onclick="go_north();" style="display:none; font-family:Times New Roman; border:3px solid; font-size:20px; position:absolute; top: 600px; left:300px; width:100px; height:100px"> 北へ </button>
+    <button id="go_south" onclick="go_south();" style="display:none; font-family:Times New Roman; border:3px solid; font-size:20px; position:absolute; top: 800px; left:300px; width:100px; height:100px"> 南へ </button>
+    <button id="go_east" onclick="go_east();" style="display:none; font-family:Times New Roman; border:3px solid; font-size:20px; position:absolute; top: 700px; left:400px; width:100px; height:100px"> 東へ </button>
+    <button id="go_west" onclick="go_west();" style="display:none; font-family:Times New Roman; border:3px solid; font-size:20px; position:absolute; top: 700px; left:200px; width:100px; height:100px"> 西へ </button>
+    <button id="go_down23" onclick="go_b3f();" style="display: none; font-family:Times New Roman; border:3px solid; font-size:20px; position:absolute; top: 700px; left:300px; width:100px; height:100px"> ハシゴでB3Fへ </button>
+    <button id="go_up21" onclick="go_b1f();" style="display: none; font-family:Times New Roman; border:3px solid; font-size:20px; position:absolute; top: 700px; left:300px; width:100px; height:100px"> ハシゴでB1Fへ </button>
+    <input id="hebon2" type="text" placeholder="ひらがなで入力して変換" style="display:none;">
+    <button id="hebonb2" onclick="hiraganaToRomaji()" style="display: none;"> 変換 </button>
+
+    <!-- ///////////////////// ここまで STEP 2 /////////////////////-->
+    
+    <!-- ///////////////////// ここから STEP 3 /////////////////////-->
+
+    <script>
+
+    </script>
+
+    <div id="b3f" style="font-size:50px; display:none; font-family:Times New Roman; -webkit-text-stroke: 2px white;"> B3F 0/6 </div>
+    <img src="imgs_DONT_OPEN//b31.png" id="b31" style="display:none; width:50%; height:50%; max-width: 75%; max-height:75%;"></img>
+    <img src="imgs_DONT_OPEN//b32.png" id="b32" style="display:none; width:50%; height:50%; max-width: 75%; max-height:75%;"></img>
+    <img src="imgs_DONT_OPEN//b33.png" id="b33" style="display:none; width:50%; height:50%; max-width: 75%; max-height:75%;"></img>
+    <img src="imgs_DONT_OPEN//b34.png" id="b34" style="display:none; width:50%; height:50%; max-width: 75%; max-height:75%;"></img>
+    <img src="imgs_DONT_OPEN//b35.png" id="b35" style="display:none; width:50%; height:50%; max-width: 75%; max-height:75%;"></img>
+    <img src="imgs_DONT_OPEN//b36.png" id="b36" style="display:none; width:50%; height:50%; max-width: 75%; max-height:75%;"></img>
+    <input id="b31fo" type="text" placeholder="解答を半角英字で入力" style="display: none;">
+    <input id="b32fo" type="text" placeholder="解答を半角英字で入力" style="display: none;">
+    <input id="b33fo" type="text" placeholder="解答を半角英字で入力" style="display: none;">
+    <input id="b34fo" type="text" placeholder="解答を半角英字で入力" style="display: none;">
+    <input id="b35fo" type="text" placeholder="解答を半角英字で入力" style="display: none;">
+    <input id="b36fo" type="text" placeholder="解答を半角英字で入力" style="display: none;">
+    <button id="submitbutton3" onclick="anssubmitb3();" style="display: none;"> 送信 </button>
+    <button id="go_north" onclick="go_north();" style="display:none; font-family:Times New Roman; border:3px solid; font-size:20px; position:absolute; top: 600px; left:300px; width:100px; height:100px"> 北へ </button>
+    <button id="go_south" onclick="go_south();" style="display:none; font-family:Times New Roman; border:3px solid; font-size:20px; position:absolute; top: 800px; left:300px; width:100px; height:100px"> 南へ </button>
+    <button id="go_east" onclick="go_east();" style="display:none; font-family:Times New Roman; border:3px solid; font-size:20px; position:absolute; top: 700px; left:400px; width:100px; height:100px"> 東へ </button>
+    <button id="go_west" onclick="go_west();" style="display:none; font-family:Times New Roman; border:3px solid; font-size:20px; position:absolute; top: 700px; left:200px; width:100px; height:100px"> 西へ </button>
+    <button id="go_down34" onclick="go_b4f();" style="display: none; font-family:Times New Roman; border:3px solid; font-size:20px; position:absolute; top: 700px; left:300px; width:100px; height:100px"> 最深部へ </button>
+    <button id="go_up32" onclick="go_b2f();" style="display: none; font-family:Times New Roman; border:3px solid; font-size:20px; position:absolute; top: 700px; left:300px; width:100px; height:100px"> ハシゴでB2Fへ </button>
+    <input id="hebon3" type="text" placeholder="ひらがなで入力して変換" style="display:none;">
+    <button id="hebonb3" onclick="hiraganaToRomaji()" style="display: none;"> 変換 </button>
+
+    <!-- ///////////////////// ここから 最深部 /////////////////////-->
+    <div id="b4f" style="font-size:50px; display:none; font-family:Times New Roman; -webkit-text-stroke: 2px white;"> FINAL </div>
+    <img src="imgs_DONT_OPEN//bfinal.PNG" id="bfinal" style="display:none; width:50%; height:50%; max-width: 75%; max-height:75%;"></img>
+    <input id="bfinalfo" type="text" placeholder="解答を半角英字で入力" style="display: none;">
+    <button id="submitbutton4" onclick="anssubmitb4();" style="display: none;"> 送信 </button>
+    <button id="go_north" onclick="go_north();" style="display:none; font-family:Times New Roman; border:3px solid; font-size:20px; position:absolute; top: 600px; left:300px; width:100px; height:100px"> 北へ </button>
+    <button id="go_south" onclick="go_south();" style="display:none; font-family:Times New Roman; border:3px solid; font-size:20px; position:absolute; top: 800px; left:300px; width:100px; height:100px"> 南へ </button>
+    <button id="go_east" onclick="go_east();" style="display:none; font-family:Times New Roman; border:3px solid; font-size:20px; position:absolute; top: 700px; left:400px; width:100px; height:100px"> 東へ </button>
+    <button id="go_west" onclick="go_west();" style="display:none; font-family:Times New Roman; border:3px solid; font-size:20px; position:absolute; top: 700px; left:200px; width:100px; height:100px"> 西へ </button>
+    <button id="go_up43" onclick="go_b3f();" style="display: none; font-family:Times New Roman; border:3px solid; font-size:20px; position:absolute; top: 700px; left:300px; width:100px; height:100px"> ハシゴでB3Fへ </button>
+    <input id="hebon4" type="text" placeholder="ひらがなで入力して変換" style="display:none;">
+    <button id="hebonb4" onclick="hiraganaToRomaji()" style="display: none;"> 変換 </button>
+
+    <noscript><p> Javascriptをオンにしてください。 </p></noscript>
+</body>
+</html>
